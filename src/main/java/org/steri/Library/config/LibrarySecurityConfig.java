@@ -16,7 +16,6 @@ import org.steri.Library.service.UserService;
 @EnableWebSecurity
 public class LibrarySecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     private UserService userDetailsService;
 
 //    @Autowired
