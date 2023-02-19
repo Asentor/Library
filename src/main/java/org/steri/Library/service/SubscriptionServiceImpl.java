@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.steri.Library.entity.Book;
 import org.steri.Library.entity.Subscription;
-import org.steri.Library.entity.User;
+import org.steri.Library.entity.LibraryUser;
 import org.steri.Library.exception.ResourceNotFoundException;
 import org.steri.Library.repo.BookRepository;
 import org.steri.Library.repo.SubscriptionRepository;
@@ -31,8 +31,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public Subscription createSubscription(Subscription subscription) {
-        User user = userServiceImpl.findById(subscription.getUser().getId()); // fetch user from database
-        subscription.setUser(user);
+        LibraryUser libraryUser = userServiceImpl.findById(subscription.getLibraryUser().getId()); // fetch user from database
+        subscription.setLibraryUser(libraryUser);
         return subscriptionRepository.save(subscription);
     }
 
@@ -65,9 +65,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         List<Subscription> subscriptions = subscriptionRepository.findAllByEndDateBefore(expirationDate);
 
         for (Subscription subscription : subscriptions) {
-            User user = subscription.getUser();
+            LibraryUser libraryUser = subscription.getLibraryUser();
             String message = "Your subscription with id " + subscription.getId() + " is expiring soon!";
-            notificationService.sendNotification(message, user);
+            notificationService.sendNotification(message, libraryUser);
         }
     }
 

@@ -1,15 +1,13 @@
 package org.steri.Library.entity;
 
-import jakarta.persistence.*;
+
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.steri.Library.enums.RoleEnum;
 
-import java.time.LocalDateTime;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +18,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User implements UserDetails {
+public class LibraryUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,10 +33,10 @@ public class User implements UserDetails {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "libraryUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Book> loans;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "libraryUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Subscription subscription;
 
     @Column(name = "account_non_expired", nullable = false)
@@ -57,8 +55,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private List<RoleEnum> roles;
 
-    @Override
 
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
     }
@@ -82,4 +81,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
 }

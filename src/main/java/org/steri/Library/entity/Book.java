@@ -1,13 +1,13 @@
 package org.steri.Library.entity;
 
-import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import java.time.LocalDate;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -30,7 +30,7 @@ public class Book {
     private Boolean available;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private LibraryUser libraryUser;
 
     @ManyToOne
     @JoinColumn(name = "subscription_id")

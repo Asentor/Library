@@ -2,8 +2,8 @@ package org.steri.Library.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.steri.Library.entity.LibraryUser;
 import org.steri.Library.entity.Subscription;
-import org.steri.Library.entity.User;
 import org.steri.Library.service.UserService;
 
 @RestController
@@ -18,8 +18,8 @@ public class UserController {
 
     @PostMapping
     @PreAuthorize("hasRole('MANAGER')")
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    public LibraryUser createUser(@RequestBody LibraryUser libraryUser) {
+        return userService.createUser(libraryUser);
     }
 
     @GetMapping("/{id}/subscription")

@@ -1,21 +1,16 @@
 package org.steri.Library.service;
 
-import lombok.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.steri.Library.dto.UserDto;
-import org.steri.Library.entity.Role;
+import org.steri.Library.entity.LibraryUser;
 import org.steri.Library.entity.Subscription;
-import org.steri.Library.entity.User;
-import org.steri.Library.enums.RoleEnum;
 import org.steri.Library.exception.ResourceNotFoundException;
-import org.steri.Library.repo.RoleRepository;
-import org.steri.Library.repo.SubscriptionRepository;
 import org.steri.Library.repo.UserRepository;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -26,28 +21,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public LibraryUser createUser(LibraryUser libraryUser) {
+        return userRepository.save(libraryUser);
         }
 
     @Override
-    public User getUserById(Long id) {
+    public LibraryUser getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
     }
     @Override
     public Subscription getSubscription(Long id) {
-        User user = userRepository.findById(id).orElse(null);
-        return user != null ? user.getSubscription() : null;
+        LibraryUser libraryUser = userRepository.findById(id).orElse(null);
+        return libraryUser != null ? libraryUser.getSubscription() : null;
     }
 
     @Override
-    public User findByUsername(String username) {
+    public LibraryUser findByUsername(String username) {
         return userRepository.findByUsername(username).orElse(null);
     }
 
     @Override
-    public User findById(Long id) {
+    public LibraryUser findById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 

@@ -1,7 +1,8 @@
 package org.steri.Library.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,8 +19,8 @@ public class LibrarySecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserService userDetailsService;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     public LibrarySecurityConfig(UserService userDetailsService) {
         this.userDetailsService = userDetailsService;

@@ -2,11 +2,11 @@ package org.steri.Library.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.steri.Library.entity.User;
+import org.steri.Library.entity.LibraryUser;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+public interface UserRepository extends JpaRepository<LibraryUser, Long> {
+    Optional<LibraryUser> findByUsername(String username);
 }

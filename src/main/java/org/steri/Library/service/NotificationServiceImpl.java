@@ -3,7 +3,7 @@ package org.steri.Library.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.steri.Library.entity.User;
+import org.steri.Library.entity.LibraryUser;
 
 @Service
 public class NotificationServiceImpl implements NotificationService {
@@ -16,7 +16,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void sendNotification(String message, User user) {
-        emailNotificationService.sendNotification(user.getEmail(), "", message);
+    public void sendNotification(String message, LibraryUser libraryUser) {
+        emailNotificationService.sendNotification(libraryUser.getEmail(), "", message);
     }
 }

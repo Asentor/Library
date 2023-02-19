@@ -3,8 +3,8 @@ package org.steri.Library.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.steri.Library.entity.LibraryUser;
 import org.steri.Library.entity.Subscription;
-import org.steri.Library.entity.User;
 import org.steri.Library.service.NotificationService;
 import org.steri.Library.service.SubscriptionService;
 import org.steri.Library.service.UserService;
@@ -34,9 +34,9 @@ public class NotificationController {
         List<Subscription> subscriptions = subscriptionService.findAllByEndDateBefore(LocalDate.now().plusDays(7));
 
         for (Subscription subscription : subscriptions) {
-            User user = userService.findById(subscription.getUser().getId());
+            LibraryUser libraryUser = userService.findById(subscription.getLibraryUser().getId());
             String message = "Your subscription will expire in 7 days.";
-            notificationService.sendNotification(message, user);
+            notificationService.sendNotification(message, libraryUser);
         }
     }
 }
